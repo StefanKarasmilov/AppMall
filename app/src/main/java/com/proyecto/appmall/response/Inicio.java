@@ -1,23 +1,23 @@
-package com.proyecto.appmall.ui;
+package com.proyecto.appmall.response;
 
 public class Inicio {
 
-    private String nombreTienda;
+    private String nombreOferta;
     private String descripcion;
     private String photoUrl;
 
-    public Inicio(String nombreTienda, String descripcion, String photoUrl) {
-        this.nombreTienda = nombreTienda;
+    public Inicio(String nombreOferta, String descripcion, String photoUrl) {
+        this.nombreOferta = nombreOferta;
         this.descripcion = descripcion;
         this.photoUrl = photoUrl;
     }
 
-    public String getNombreTienda() {
-        return nombreTienda;
+    public String getNombreOferta() {
+        return nombreOferta;
     }
 
-    public void setNombreTienda(String nombreTienda) {
-        this.nombreTienda = nombreTienda;
+    public void setNombreOferta(String nombreOferta) {
+        this.nombreOferta = nombreOferta;
     }
 
     public String getDescripcion() {

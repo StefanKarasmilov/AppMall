@@ -9,11 +9,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.proyecto.appmall.ui.Inicio;
-import com.proyecto.appmall.ui.InicioFragment;
+import com.proyecto.appmall.response.Inicio;
+import com.proyecto.appmall.ui.inicio.InicioFragment;
+import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 
 public class HomeActivity extends AppCompatActivity implements InicioFragment.OnListFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener{
 
@@ -77,12 +77,17 @@ public class HomeActivity extends AppCompatActivity implements InicioFragment.On
                         .replace(R.id.fragment_container, new InicioFragment())
                         .commit();
                 break;
+            case R.id.nav_tiendas:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new TiendasFragment())
+                        .commit();
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
-
 
 }

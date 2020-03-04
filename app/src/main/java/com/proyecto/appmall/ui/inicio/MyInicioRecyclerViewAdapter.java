@@ -1,4 +1,4 @@
-package com.proyecto.appmall.ui;
+package com.proyecto.appmall.ui.inicio;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.response.Inicio;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.tvInicioTienda.setText(holder.mItem.getNombreTienda());
+        holder.tvInicioTienda.setText(holder.mItem.getNombreOferta());
         holder.tvInicioDescripcion.setText(holder.mItem.getDescripcion());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

@@ -1,10 +1,9 @@
-package com.proyecto.appmall.ui;
+package com.proyecto.appmall.ui.tiendas;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,20 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.response.Tiendas;
+import com.proyecto.appmall.ui.inicio.InicioFragment;
+import com.proyecto.appmall.ui.inicio.MyInicioRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InicioFragment extends Fragment {
+
+public class TiendasFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     RecyclerView recyclerView;
-    MyInicioRecyclerViewAdapter adapter;
-    List<Inicio> inicioList;
+    MyTiendasRecyclerViewAdapter adapter;
+    List<Tiendas> tiendasList;
     private OnListFragmentInteractionListener mListener;
 
-    public InicioFragment() {
+    public TiendasFragment() {
     }
 
 
@@ -56,18 +59,17 @@ public class InicioFragment extends Fragment {
         Context context = view.getContext();
         recyclerView = (RecyclerView) view;
 
-        inicioList = new ArrayList<>();
-        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
-        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
+        tiendasList = new ArrayList<>();
+        tiendasList.add(new Tiendas("Zara", "Tienda de ropa", "9:00 - 22:00", "www.zara.com"));
+        tiendasList.add(new Tiendas("Zara", "Tienda de ropa", "9:00 - 22:00", "www.zara.com"));
+        tiendasList.add(new Tiendas("Zara", "Tienda de ropa", "9:00 - 22:00", "www.zara.com"));
 
         // Declaración del layout
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new MyInicioRecyclerViewAdapter(
+        adapter = new MyTiendasRecyclerViewAdapter(
                 getActivity(),
-                inicioList,
+                tiendasList,
                 mListener
         );
 
@@ -79,8 +81,8 @@ public class InicioFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof InicioFragment.OnListFragmentInteractionListener) {
+            mListener = (TiendasFragment.OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -95,7 +97,6 @@ public class InicioFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Inicio item);
+        void onListFragmentInteraction(Tiendas item);
     }
-
 }
