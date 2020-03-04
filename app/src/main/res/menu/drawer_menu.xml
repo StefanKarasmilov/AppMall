@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_inicio"
+        android:title="Inicio"/>
+        <item
+            android:id="@+id/nav_tiendas"
+            android:icon="@drawable/ic_tiendas"
+            android:title="Tiendas"/>
+        <item
+            android:id="@+id/nav_restaurantes"
+            android:icon="@drawable/ic_restaurante"
+            android:title="Restaurantes"/>
+        <item
+            android:id="@+id/nav_cines"
+            android:icon="@drawable/ic_cines"
+            android:title="Cines"/>
+        <item
+            android:id="@+id/nav_navegar"
+            android:icon="@drawable/ic_navegar"
+            android:title="Navegar"/>
+    </group>
+
+</menu>
