@@ -1,5 +1,6 @@
 package com.proyecto.appmall;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -7,12 +8,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.proyecto.appmall.ui.Inicio;
 import com.proyecto.appmall.ui.InicioFragment;
 
-public class HomeActivity extends AppCompatActivity implements InicioFragment.OnListFragmentInteractionListener {
+public class HomeActivity extends AppCompatActivity implements InicioFragment.OnListFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
 
@@ -29,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements InicioFragment.On
         // Enlazamos las variables con los componentes gráficos
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Botón que abre el menú
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,4 +66,23 @@ public class HomeActivity extends AppCompatActivity implements InicioFragment.On
     public void onListFragmentInteraction(Inicio item) {
 
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.nav_inicio:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new InicioFragment())
+                        .commit();
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+
+    }
+
+
 }
