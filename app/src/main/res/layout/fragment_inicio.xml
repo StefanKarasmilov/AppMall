@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:id="@+id/imageViewInicioOferta"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_menu_gallery" />
+
+    <TextView
+        android:id="@+id/textViewInicioTienda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageViewInicioOferta"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewInicioDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewInicioTienda"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInicioTienda" />
+</androidx.constraintlayout.widget.ConstraintLayout>

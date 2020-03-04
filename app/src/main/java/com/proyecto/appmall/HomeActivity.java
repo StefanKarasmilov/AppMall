@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
+import com.proyecto.appmall.ui.InicioFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,6 +36,14 @@ public class HomeActivity extends AppCompatActivity {
         );
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        if(savedInstanceState == null){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new InicioFragment())
+                    .commit();
+            navigationView.setCheckedItem(R.id.nav_inicio);
+        }
 
     }
 
