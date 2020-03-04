@@ -9,9 +9,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
+import com.proyecto.appmall.ui.Inicio;
 import com.proyecto.appmall.ui.InicioFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements InicioFragment.OnListFragmentInteractionListener {
 
     private DrawerLayout drawer;
 
@@ -57,4 +58,8 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onListFragmentInteraction(Inicio item) {
+
+    }
 }

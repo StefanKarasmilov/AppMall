@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.proyecto.appmall.response;
 import com.proyecto.appmall.R;
 
 import java.util.List;
@@ -19,10 +18,12 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
     private List<Inicio> mValues;
     private Context ctx;
+    private InicioFragment.OnListFragmentInteractionListener mListener;
 
-    public MyInicioRecyclerViewAdapter(List<Inicio> items, Context contexto) {
+    public MyInicioRecyclerViewAdapter(Context contexto, List<Inicio> items, InicioFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         ctx = contexto;
+        mListener = listener;
     }
 
     @Override
@@ -36,7 +37,19 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.tvInicioTienda.setText(holder.mItem.);
+        holder.tvInicioTienda.setText(holder.mItem.getNombreTienda());
+        holder.tvInicioDescripcion.setText(holder.mItem.getDescripcion());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onListFragmentInteraction(holder.mItem);
+                }
+            }
+        });
 
     }
 

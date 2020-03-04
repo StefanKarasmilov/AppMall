@@ -1,4 +1,4 @@
-package com.proyecto.appmall.response;
+package com.proyecto.appmall.ui;
 
 public class Inicio {
 
