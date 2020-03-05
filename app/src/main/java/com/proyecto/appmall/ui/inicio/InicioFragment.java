@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.response.Inicio;
-import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ public class InicioFragment extends Fragment {
     RecyclerView recyclerView;
     MyInicioRecyclerViewAdapter adapter;
     List<Inicio> inicioList;
-    private OnListFragmentInteractionListener mListener;
 
     public InicioFragment() {
     }
@@ -62,41 +60,26 @@ public class InicioFragment extends Fragment {
         inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
         inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
         inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
+        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
+        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
+        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
 
         // Declaración del layout
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         adapter = new MyInicioRecyclerViewAdapter(
                 getActivity(),
-                inicioList,
-                mListener
+                inicioList
         );
 
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Inicio item);
     }
 
 }

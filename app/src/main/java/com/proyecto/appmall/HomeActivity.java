@@ -12,10 +12,11 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.proyecto.appmall.response.Inicio;
+import com.proyecto.appmall.response.Tiendas;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 
-public class HomeActivity extends AppCompatActivity implements InicioFragment.OnListFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
 
@@ -62,10 +63,7 @@ public class HomeActivity extends AppCompatActivity implements InicioFragment.On
         }
     }
 
-    @Override
-    public void onListFragmentInteraction(Inicio item) {
 
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

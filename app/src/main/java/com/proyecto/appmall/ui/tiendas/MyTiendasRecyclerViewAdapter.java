@@ -11,49 +11,35 @@ import android.widget.TextView;
 
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.response.Tiendas;
-import com.proyecto.appmall.ui.inicio.InicioFragment;
 
 import java.util.List;
 
 
 public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendasRecyclerViewAdapter.ViewHolder> {
 
-    private List<Tiendas> mValues;
+    private final List<Tiendas> mValues;
     private Context ctx;
-    private TiendasFragment.OnListFragmentInteractionListener mListener;
 
-    public MyTiendasRecyclerViewAdapter(Context contexto, List<Tiendas> items, TiendasFragment.OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyTiendasRecyclerViewAdapter(Context contexto, List<Tiendas> items) {
         ctx = contexto;
-        mListener = listener;
+        mValues = items;
     }
 
     @Override
-    public MyTiendasRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_inicio, parent, false);
-        return new MyTiendasRecyclerViewAdapter.ViewHolder(view);
+                .inflate(R.layout.fragment_tiendas, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final MyTiendasRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.tvTiendasNombre.setText(holder.mItem.getNombre());
+        holder.tvTienadsNombre.setText(holder.mItem.getNombre());
         holder.tvTiendasDescripcion.setText(holder.mItem.getDescripcion());
-        holder.tvTiendasHorario.setText(holder.mItem.getHorario());
         holder.tvTiendasWeb.setText(holder.mItem.getWeb());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.tvTiendasHorario.setText(holder.mItem.getHorario());
 
     }
 
@@ -64,7 +50,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView tvTiendasNombre;
+        public final TextView tvTienadsNombre;
         public final TextView tvTiendasDescripcion;
         public final TextView tvTiendasWeb;
         public final TextView tvTiendasHorario;
@@ -74,7 +60,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            tvTiendasNombre = view.findViewById(R.id.textViewTiendasNombre);
+            tvTienadsNombre = view.findViewById(R.id.textViewTiendasNombre);
             tvTiendasDescripcion = view.findViewById(R.id.textViewTiendasDescripcion);
             tvTiendasWeb = view.findViewById(R.id.textViewTiendasWeb);
             tvTiendasHorario = view.findViewById(R.id.textViewTiendasHorario);
@@ -83,7 +69,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
 
         @Override
         public String toString() {
-            return super.toString() + " '" + tvTiendasNombre.getText() + "'";
+            return super.toString() + " '" + tvTienadsNombre.getText() + "'";
         }
     }
 }

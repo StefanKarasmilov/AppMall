@@ -19,12 +19,10 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
     private List<Inicio> mValues;
     private Context ctx;
-    private InicioFragment.OnListFragmentInteractionListener mListener;
 
-    public MyInicioRecyclerViewAdapter(Context contexto, List<Inicio> items, InicioFragment.OnListFragmentInteractionListener listener) {
+    public MyInicioRecyclerViewAdapter(Context contexto, List<Inicio> items) {
         mValues = items;
         ctx = contexto;
-        mListener = listener;
     }
 
     @Override
@@ -40,17 +38,6 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
         holder.tvInicioTienda.setText(holder.mItem.getNombreOferta());
         holder.tvInicioDescripcion.setText(holder.mItem.getDescripcion());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
 
     }
 
@@ -69,9 +56,9 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            tvInicioTienda = view.findViewById(R.id.textViewInicioTienda);
-            tvInicioDescripcion = view.findViewById(R.id.textViewInicioDescripcion);
-            ivInicioOferta = view.findViewById(R.id.imageViewInicioOferta);
+            tvInicioTienda = view.findViewById(R.id.textViewTiendasNombre);
+            tvInicioDescripcion = view.findViewById(R.id.textViewTiendasDescripcion);
+            ivInicioOferta = view.findViewById(R.id.imageViewTiendasPhoto);
         }
 
         @Override
