@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.proyecto.appmall.response.Inicio;
 import com.proyecto.appmall.response.Tiendas;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
+import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
 import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -44,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         if(savedInstanceState == null){
+            toolbar.setTitle("Inicio");
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, new InicioFragment())
@@ -68,17 +70,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
         switch(item.getItemId()){
             case R.id.nav_inicio:
+                toolbar.setTitle("Inicio");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new InicioFragment())
                         .commit();
                 break;
             case R.id.nav_tiendas:
+                toolbar.setTitle("Tiendas");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new TiendasFragment())
+                        .commit();
+                break;
+            case R.id.nav_restaurantes:
+                toolbar.setTitle("Restaurantes");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new RestaurantesFragment())
                         .commit();
                 break;
         }
