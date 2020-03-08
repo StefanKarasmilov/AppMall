@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.proyecto.appmall.response.Inicio;
 import com.proyecto.appmall.response.Tiendas;
+import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
 import com.proyecto.appmall.ui.tiendas.TiendasFragment;
@@ -92,6 +93,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new RestaurantesFragment())
+                        .commit();
+                break;
+            case R.id.nav_cines:
+                toolbar.setTitle("Cines");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new CinesFragment())
                         .commit();
                 break;
         }
