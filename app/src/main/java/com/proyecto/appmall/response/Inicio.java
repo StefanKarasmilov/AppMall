@@ -6,6 +6,8 @@ public class Inicio {
     private String descripcion;
     private String photoUrl;
 
+    public Inicio(){}
+
     public Inicio(String nombreOferta, String descripcion, String photoUrl) {
         this.nombreOferta = nombreOferta;
         this.descripcion = descripcion;
