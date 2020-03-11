@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.response.Inicio;
 
@@ -31,6 +33,7 @@ public class InicioFragment extends Fragment {
     MyInicioRecyclerViewAdapter adapter;
     List<Inicio> inicioList;
     FirebaseFirestore db;
+    StorageReference sr;
 
     public InicioFragment() {
     }
@@ -50,6 +53,7 @@ public class InicioFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         db = FirebaseFirestore.getInstance();
+        sr = FirebaseStorage.getInstance().getReference();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.response.Inicio;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
         holder.tvInicioTienda.setText(holder.mItem.getNombreOferta());
         holder.tvInicioDescripcion.setText(holder.mItem.getDescripcion());
 
+        Picasso.get().load(holder.mItem.getPhotoUrl())
+                .into(holder.ivInicioOferta);
     }
 
     @Override
