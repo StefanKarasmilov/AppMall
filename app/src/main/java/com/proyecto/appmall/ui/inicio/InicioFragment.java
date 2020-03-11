@@ -3,6 +3,7 @@ package com.proyecto.appmall.ui.inicio;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.response.Inicio;
 
@@ -24,6 +30,7 @@ public class InicioFragment extends Fragment {
     RecyclerView recyclerView;
     MyInicioRecyclerViewAdapter adapter;
     List<Inicio> inicioList;
+    FirebaseFirestore db;
 
     public InicioFragment() {
     }
@@ -42,6 +49,8 @@ public class InicioFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        db = FirebaseFirestore.getInstance();
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -55,6 +64,29 @@ public class InicioFragment extends Fragment {
         Context context = view.getContext();
         recyclerView = (RecyclerView) view;
 
+        // Declaración del layout
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        db.collection("inicio")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        inicioList = new ArrayList<>();
+                        for(DocumentSnapshot document : task.getResult()){
+                            Inicio inicioItem = document.toObject(Inicio.class);
+                            inicioList.add(inicioItem);
+
+                            adapter = new MyInicioRecyclerViewAdapter(
+                                    getActivity(),
+                                    inicioList
+                            );
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
+
+        /*
         inicioList = new ArrayList<>();
         inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
         inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
@@ -68,16 +100,18 @@ public class InicioFragment extends Fragment {
         inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
         inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
         inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
+         */
 
-        // Declaración del layout
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
+
+        /*
         adapter = new MyInicioRecyclerViewAdapter(
                 getActivity(),
                 inicioList
         );
+        */
 
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
         return view;
     }
