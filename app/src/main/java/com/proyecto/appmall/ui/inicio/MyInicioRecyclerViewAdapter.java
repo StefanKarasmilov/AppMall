@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,9 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
         Picasso.get().load(holder.mItem.getPhotoUrl())
                 .into(holder.ivInicioOferta);
+
+        // Animación
+        holder.getView().setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.zoom_in));
     }
 
     @Override
@@ -62,6 +66,10 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
             tvInicioTienda = view.findViewById(R.id.textViewTiendasNombre);
             tvInicioDescripcion = view.findViewById(R.id.textViewTiendasDescripcion);
             ivInicioOferta = view.findViewById(R.id.imageViewTiendasPhoto);
+        }
+
+        public View getView(){
+            return mView;
         }
 
         @Override

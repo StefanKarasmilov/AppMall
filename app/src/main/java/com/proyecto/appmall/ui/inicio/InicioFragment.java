@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class InicioFragment extends Fragment {
     MyInicioRecyclerViewAdapter adapter;
     List<Inicio> inicioList;
     FirebaseFirestore db;
-    StorageReference sr;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public InicioFragment() {
     }
@@ -53,7 +54,6 @@ public class InicioFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         db = FirebaseFirestore.getInstance();
-        sr = FirebaseStorage.getInstance().getReference();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -66,10 +66,28 @@ public class InicioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inicio_list, container, false);
 
         Context context = view.getContext();
-        recyclerView = (RecyclerView) view;
+        recyclerView = view.findViewById(R.id.list);
 
         // Declaración del layout
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        // Funcción para el Swipe refresh
+        swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                loadNewData();
+            }
+        });
+
+        loadData();
+
+        return view;
+    }
+
+    private void loadData() {
 
         db.collection("inicio")
                 .get()
@@ -90,34 +108,31 @@ public class InicioFragment extends Fragment {
                     }
                 });
 
-        /*
-        inicioList = new ArrayList<>();
-        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
-        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
-        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Zara", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Bershka", "Descuento en camisetas del 60%", ""));
-        inicioList.add(new Inicio("JD", "Descuento en pantalones del 60%", ""));
-        inicioList.add(new Inicio("Nike", "Descuento en pantalones del 60%", ""));
-         */
+    }
 
+    private void loadNewData() {
 
+        db.collection("inicio")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        inicioList = new ArrayList<>();
+                        for(DocumentSnapshot document : task.getResult()){
+                            Inicio inicioItem = document.toObject(Inicio.class);
+                            inicioList.add(inicioItem);
 
-        /*
-        adapter = new MyInicioRecyclerViewAdapter(
-                getActivity(),
-                inicioList
-        );
-        */
+                            adapter = new MyInicioRecyclerViewAdapter(
+                                    getActivity(),
+                                    inicioList
+                            );
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
 
-        //recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(false);
 
-        return view;
     }
 
 }
