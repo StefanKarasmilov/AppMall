@@ -42,6 +42,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    compile 'com.ms-square:expandableTextView:0.1.4'
     implementation('com.squareup.picasso:picasso:2.71828') {
         exclude group: 'com.android.support'
         exclude module: ['exifinterface', 'support-annotations']

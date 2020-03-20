@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp">
+    android:layout_marginBottom="2dp"
+    android:padding="6dp"
+    app:cardBackgroundColor="#FFFFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,35 +28,61 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="TextView"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewTiendasDescripcion"
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_text_tiendas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textViewTiendasNombre"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasNombre" />
+            app:animDuration="200"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasWeb"
+            app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasNombre"
+            app:maxCollapsedLines="1">
 
-        <TextView
-            android:id="@+id/textViewTiendasWeb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"
+                android:padding="16dp" />
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
 
         <TextView
             android:id="@+id/textViewTiendasHorario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/textViewTiendasDescripcion"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasDescripcion" />
+            app:layout_constraintStart_toStartOf="@+id/expand_text_tiendas"
+            app:layout_constraintTop_toBottomOf="@+id/expand_text_tiendas" />
+
+        <TextView
+            android:id="@+id/textViewTiendasWeb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:freezesText="false"
+            android:shadowColor="#FFFFFF"
+            android:text="Abrir web"
+            android:textColor="#2196F3"
+            android:textIsSelectable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

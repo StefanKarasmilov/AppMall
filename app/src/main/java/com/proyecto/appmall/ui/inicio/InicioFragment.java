@@ -71,7 +71,7 @@ public class InicioFragment extends Fragment {
         // Declaración del layout
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        // Funcción para el Swipe refresh
+        // Función para el Swipe refresh
         swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

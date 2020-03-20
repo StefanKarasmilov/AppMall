@@ -3,17 +3,26 @@ package com.proyecto.appmall.ui.tiendas;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.response.Inicio;
 import com.proyecto.appmall.response.Tiendas;
+import com.proyecto.appmall.ui.inicio.MyInicioRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +35,8 @@ public class TiendasFragment extends Fragment {
     List<Tiendas> tiendasList;
     MyTiendasRecyclerViewAdapter adapter;
     RecyclerView recyclerView;
+    FirebaseFirestore db;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public TiendasFragment() {
     }
@@ -43,6 +54,8 @@ public class TiendasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        db = FirebaseFirestore.getInstance();
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -54,34 +67,73 @@ public class TiendasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tiendas_list, container, false);
 
         Context context = view.getContext();
-        recyclerView = (RecyclerView) view;
+        recyclerView = view.findViewById(R.id.list);
 
-        tiendasList = new ArrayList<>();
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
-        tiendasList.add(new Tiendas("Zara", "Tienda para ropa", "9:00 - 22:00", "www.zara.es"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new MyTiendasRecyclerViewAdapter(
-                getActivity(),
-                tiendasList
-        );
+        // Función para el Swipe refresh
+        swipeRefreshLayout = view.findViewById(R.id.tiendasRefresh);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                loadNewData();
+            }
+        });
 
-        recyclerView.setAdapter(adapter);
+        loadData();
 
         return view;
+    }
+
+    private void loadData() {
+
+        db.collection("tiendas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        tiendasList = new ArrayList<>();
+                        for(DocumentSnapshot document : task.getResult()){
+                            Tiendas tiendasItem = document.toObject(Tiendas.class);
+                            tiendasList.add(tiendasItem);
+
+                            adapter = new MyTiendasRecyclerViewAdapter(
+                                    getActivity(),
+                                    tiendasList
+                            );
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
+
+    }
+
+    private void loadNewData() {
+
+        db.collection("tiendas")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        tiendasList = new ArrayList<>();
+                        for(DocumentSnapshot document : task.getResult()){
+                            Tiendas tiendasItem = document.toObject(Tiendas.class);
+                            tiendasList.add(tiendasItem);
+
+                            adapter = new MyTiendasRecyclerViewAdapter(
+                                    getActivity(),
+                                    tiendasList
+                            );
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
+
+        swipeRefreshLayout.setRefreshing(false);
+
     }
 
 }

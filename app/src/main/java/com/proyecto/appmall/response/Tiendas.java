@@ -6,12 +6,16 @@ public class Tiendas {
     private String descripcion;
     private String horario;
     private String web;
+    private String photoUrl;
 
-    public Tiendas(String nombre, String descripcion, String horario, String web) {
+    public Tiendas(){}
+
+    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horario = horario;
         this.web = web;
+        this.photoUrl = photoUrl;
     }
 
     public String getNombre() {
@@ -44,5 +48,13 @@ public class Tiendas {
 
     public void setWeb(String web) {
         this.web = web;
+    }
+
+    public String getPhotoUrl(){
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl){
+        this.photoUrl = photoUrl;
     }
 }
