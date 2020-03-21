@@ -24,12 +24,14 @@
 
         <TextView
             android:id="@+id/textViewTiendasNombre"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTiendasWeb"
             app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:animDuration="200"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasWeb"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasNombre"
             app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
             app:layout_constraintTop_toBottomOf="@+id/textViewTiendasNombre"
             app:maxCollapsedLines="1">
@@ -83,6 +85,16 @@
             android:textIsSelectable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewLamada"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasWeb"
+            app:layout_constraintStart_toStartOf="@+id/textViewTiendasWeb"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasWeb"
+            app:srcCompat="@drawable/ic_call_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -62,6 +62,16 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
                 ctx.startActivity(i);
             }
         });
+
+        // Evento de llamada
+        holder.ivTiendasLlamada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_CALL);
+                i.setData(Uri.parse(String.valueOf(holder.mItem.getNumeroTel())));
+                ctx.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -76,6 +86,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
         public final TextView tvTiendasWeb;
         public final TextView tvTiendasHorario;
         public final ImageView ivTiendasPhoto;
+        public final ImageView ivTiendasLlamada;
         public Tiendas mItem;
 
         public ViewHolder(View view) {
@@ -86,6 +97,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
             tvTiendasWeb = view.findViewById(R.id.textViewTiendasWeb);
             tvTiendasHorario = view.findViewById(R.id.textViewTiendasHorario);
             ivTiendasPhoto = view.findViewById(R.id.imageViewTiendasPhoto);
+            ivTiendasLlamada = view.findViewById(R.id.imageViewLamada);
         }
 
         @Override
