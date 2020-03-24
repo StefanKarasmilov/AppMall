@@ -7,11 +7,11 @@ public class Tiendas {
     private String horario;
     private String web;
     private String photoUrl;
-    private int numeroTel;
+    private String numeroTel;
 
     public Tiendas(){}
 
-    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl, int numeroTel) {
+    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl, String numeroTel) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horario = horario;
@@ -60,11 +60,11 @@ public class Tiendas {
         this.photoUrl = photoUrl;
     }
 
-    public int getNumeroTel(){
+    public String getNumeroTel(){
         return numeroTel;
     }
 
-    public void setNumeroTel(int numeroTel){
+    public void setNumeroTel(String numeroTel){
         this.numeroTel = numeroTel;
     }
 }

@@ -1,9 +1,12 @@
 package com.proyecto.appmall.ui.tiendas;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -67,9 +70,9 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
         holder.ivTiendasLlamada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_CALL);
-                i.setData(Uri.parse(String.valueOf(holder.mItem.getNumeroTel())));
-                ctx.startActivity(i);
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + holder.mItem.getNumeroTel()));
+                    ctx.startActivity(i);
             }
         });
     }
