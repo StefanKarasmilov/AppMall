@@ -1,23 +1,19 @@
-package com.proyecto.appmall.response;
+package com.proyecto.appmall.model;
 
-public class Tiendas {
+public class Restaurantes {
 
     private String nombre;
     private String descripcion;
     private String horario;
-    private String web;
+    private int telefono;
     private String photoUrl;
-    private String numeroTel;
 
-    public Tiendas(){}
-
-    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl, String numeroTel) {
+    public Restaurantes(String nombre, String descripcion, String horario, int telefono, String photoUrl) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horario = horario;
-        this.web = web;
+        this.telefono = telefono;
         this.photoUrl = photoUrl;
-        this.numeroTel = numeroTel;
     }
 
     public String getNombre() {
@@ -44,27 +40,19 @@ public class Tiendas {
         this.horario = horario;
     }
 
-    public String getWeb() {
-        return web;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setWeb(String web) {
-        this.web = web;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public String getPhotoUrl(){
+    public String getPhotoUrl() {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl){
+    public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
-    }
-
-    public String getNumeroTel(){
-        return numeroTel;
-    }
-
-    public void setNumeroTel(String numeroTel){
-        this.numeroTel = numeroTel;
     }
 }

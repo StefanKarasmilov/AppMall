@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Cines;
+import com.proyecto.appmall.model.Cines;
 
 import java.util.List;
 

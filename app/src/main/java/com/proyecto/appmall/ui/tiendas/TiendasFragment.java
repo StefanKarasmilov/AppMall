@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,9 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Inicio;
-import com.proyecto.appmall.response.Tiendas;
-import com.proyecto.appmall.ui.inicio.MyInicioRecyclerViewAdapter;
+import com.proyecto.appmall.model.Tiendas;
 
 import java.util.ArrayList;
 import java.util.List;

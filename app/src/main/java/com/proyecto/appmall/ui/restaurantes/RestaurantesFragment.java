@@ -1,12 +1,9 @@
 package com.proyecto.appmall.ui.restaurantes;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Restaurantes;
+import com.proyecto.appmall.model.Restaurantes;
 
 import java.util.ArrayList;
 import java.util.List;

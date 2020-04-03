@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.proyecto.appmall.response.Inicio;
-import com.proyecto.appmall.response.Tiendas;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;

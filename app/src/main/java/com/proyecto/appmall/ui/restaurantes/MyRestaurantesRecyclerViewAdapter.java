@@ -3,8 +3,6 @@ package com.proyecto.appmall.ui.restaurantes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Restaurantes;
+import com.proyecto.appmall.model.Restaurantes;
 
 import java.util.List;
 

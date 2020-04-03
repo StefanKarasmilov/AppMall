@@ -1,12 +1,9 @@
 package com.proyecto.appmall.ui.tiendas;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,7 +15,7 @@ import android.widget.TextView;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Tiendas;
+import com.proyecto.appmall.model.Tiendas;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

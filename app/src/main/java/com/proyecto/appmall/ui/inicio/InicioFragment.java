@@ -18,10 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Inicio;
+import com.proyecto.appmall.model.Inicio;
 
 import java.util.ArrayList;
 import java.util.List;

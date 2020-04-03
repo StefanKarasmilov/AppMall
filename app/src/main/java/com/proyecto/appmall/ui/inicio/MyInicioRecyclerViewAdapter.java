@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyecto.appmall.R;
-import com.proyecto.appmall.response.Inicio;
+import com.proyecto.appmall.model.Inicio;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
