@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.proyecto.appmall.ui.restaurantes.RestaurantesFragment"
+    android:id="@+id/restaurantesRefresh"
+    android:name="com.proyecto.appmall.ui.RestaurantesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.restaurantes.RestaurantesFragment"
-    tools:listitem="@layout/fragment_restaurantes" />
+    tools:context=".ui.restaurantes.RestaurantesFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.proyecto.appmall.ui.restaurantes.RestaurantesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/grey_100"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".ui.restaurantes.RestaurantesFragment"
+        tools:listitem="@layout/fragment_restaurantes" />
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

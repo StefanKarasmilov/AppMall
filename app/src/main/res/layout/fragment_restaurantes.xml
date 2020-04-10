@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
     android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp">
+    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="2dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,51 +18,82 @@
 
         <ImageView
             android:id="@+id/imageViewRestaurantesPhoto"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu_gallery" />
 
         <TextView
-            android:id="@+id/textViewRestaurantesNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageViewRestaurantesPhoto"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewRestaurantesDescripcion"
+            android:id="@+id/textViewRestaurantesHorario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewRestaurantesPhoto"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewTelefonoResutantes"
+            app:layout_constraintStart_toStartOf="@+id/textViewRestaurantesNombre"
             app:layout_constraintTop_toBottomOf="@+id/textViewRestaurantesNombre" />
 
         <TextView
-            android:id="@+id/textViewRestaurantesHorario"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewRestaurantesNombre"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/imageViewRestaurantesPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRestaurantesDescripcion" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/ratingBarRestaurantes"
+            app:layout_constraintStart_toStartOf="@+id/imageViewRestaurantesPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewRestaurantesPhoto" />
 
-        <TextView
-            android:id="@+id/textViewRestaurantesTelefono"
+        <RatingBar
+            android:id="@+id/ratingBarRestaurantes"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
+            android:layout_marginTop="8dp"
+            android:max="5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewRestaurantesPhoto" />
+
+        <ImageView
+            android:id="@+id/imageViewTelefonoResutantes"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewRestaurantesPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewRestaurantesPhoto"
+            app:srcCompat="@drawable/ic_call_green" />
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_text_restaurantes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:animDuration="200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRestaurantesHorario"
+            app:maxCollapsedLines="2">
+
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"
+                android:padding="16dp" />
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

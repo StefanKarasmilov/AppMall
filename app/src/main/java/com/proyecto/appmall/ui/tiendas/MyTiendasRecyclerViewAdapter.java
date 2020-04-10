@@ -69,7 +69,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_DIAL);
                 i.setData(Uri.parse("tel:" + holder.mItem.getNumeroTel()));
-                    ctx.startActivity(i);
+                ctx.startActivity(i);
             }
         });
     }

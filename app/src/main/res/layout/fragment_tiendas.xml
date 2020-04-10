@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
     android:layout_marginTop="2dp"
+    android:layout_marginEnd="4dp"
     android:layout_marginBottom="2dp"
     android:padding="6dp"
     app:cardBackgroundColor="#FFFFFFFF">
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="TextView"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textViewTiendasWeb"
             app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
@@ -38,19 +40,17 @@
             android:id="@+id/expand_text_tiendas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             app:animDuration="200"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasNombre"
-            app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasNombre"
-            app:maxCollapsedLines="1">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewTiendasPhoto"
+            app:maxCollapsedLines="2">
 
             <TextView
                 android:id="@id/expandable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
                 android:textColor="#666666"
                 android:textSize="16sp" />
 
@@ -65,12 +65,14 @@
 
         <TextView
             android:id="@+id/textViewTiendasHorario"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/expand_text_tiendas"
-            app:layout_constraintTop_toBottomOf="@+id/expand_text_tiendas" />
+            app:layout_constraintEnd_toStartOf="@+id/imageViewLamada"
+            app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTiendasNombre" />
 
         <TextView
             android:id="@+id/textViewTiendasWeb"
@@ -87,10 +89,10 @@
 
         <ImageView
             android:id="@+id/imageViewLamada"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTiendasWeb"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textViewTiendasWeb"
             app:layout_constraintTop_toBottomOf="@+id/textViewTiendasWeb"
             app:srcCompat="@drawable/ic_call_green" />
