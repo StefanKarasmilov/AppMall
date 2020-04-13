@@ -8,9 +8,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
@@ -19,6 +25,8 @@ import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,34 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
 
+        initFirebase();
+
+    }
+
+    private void initFirebase() {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+    }
+
+    // Añade el boton "Añadir"
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        for(String adminUser : Constantes.ADMIN_UID){
+            if(user.getUid().equals(adminUser)){
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.toolbar_menu, menu);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Evento del boton del Toolbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
+        nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
+        return super.onOptionsItemSelected(item);
     }
 
     // Método que controla la apertura y cierre del menú
@@ -76,28 +112,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Inicio");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new InicioFragment())
+                        .replace(R.id.fragment_container, new InicioFragment(), "inicio")
                         .commit();
                 break;
             case R.id.nav_tiendas:
                 toolbar.setTitle("Tiendas");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new TiendasFragment())
+                        .replace(R.id.fragment_container, new TiendasFragment(),"tiendas")
                         .commit();
                 break;
             case R.id.nav_restaurantes:
                 toolbar.setTitle("Restaurantes");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new RestaurantesFragment())
+                        .replace(R.id.fragment_container, new RestaurantesFragment(),"restaurantes")
                         .commit();
                 break;
             case R.id.nav_cines:
                 toolbar.setTitle("Cines");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new CinesFragment())
+                        .replace(R.id.fragment_container, new CinesFragment(),"cines")
                         .commit();
                 break;
         }
