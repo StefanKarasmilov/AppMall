@@ -17,9 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.model.Inicio;
+import com.proyecto.appmall.model.Restaurantes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,9 +87,10 @@ public class InicioFragment extends Fragment {
         return view;
     }
 
-    private void loadData() {
+    public void loadData() {
 
         db.collection("inicio")
+                .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -111,6 +114,7 @@ public class InicioFragment extends Fragment {
     private void loadNewData() {
 
         db.collection("inicio")
+                .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

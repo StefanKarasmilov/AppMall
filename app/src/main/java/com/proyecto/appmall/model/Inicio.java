@@ -1,17 +1,22 @@
 package com.proyecto.appmall.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Inicio {
 
     private String nombreOferta;
     private String descripcion;
     private String photoUrl;
+    private String  fechaPublicacion;
 
     public Inicio(){}
 
-    public Inicio(String nombreOferta, String descripcion, String photoUrl) {
+    public Inicio(String nombreOferta, String descripcion, String photoUrl, String  fechaPublicacion) {
         this.nombreOferta = nombreOferta;
         this.descripcion = descripcion;
         this.photoUrl = photoUrl;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public String getNombreOferta() {
@@ -36,5 +41,13 @@ public class Inicio {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String  getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(String  fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 }

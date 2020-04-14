@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.proyecto.appmall.common.Constantes;
+import com.proyecto.appmall.model.Inicio;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
@@ -82,11 +83,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    // Evento del boton del Toolbar
+    // Evento del boton "Añadir" del Toolbar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
         nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,6 +143,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+
+    public void refreshInicio(){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new InicioFragment(), "inicio")
+                .commit();
     }
 
 }
