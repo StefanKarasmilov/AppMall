@@ -41,7 +41,6 @@ import java.util.Date;
 
 public class NuevaOfertaFragment extends DialogFragment implements View.OnClickListener {
 
-    private DialogInterface.OnDismissListener onDismissListener;
     private EditText etNombre, etDescripcion;
     private Button btnSubirFoto, btnPublicar, btnCancelar;
     private ProgressBar progressBar;
@@ -268,19 +267,5 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
-    /*
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener){
-        this.onDismissListener = onDismissListener;
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if(onDismissListener != null){
-            onDismissListener.onDismiss(dialog);
-        }
-    }
-    */
 
 }

@@ -1,5 +1,6 @@
 package com.proyecto.appmall.ui.inicio;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -10,7 +11,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.proyecto.appmall.BottomModalFragment;
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.common.Constantes;
+import com.proyecto.appmall.common.MyApp;
 import com.proyecto.appmall.model.Inicio;
 import com.squareup.picasso.Picasso;
 
@@ -21,10 +27,14 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
     private List<Inicio> mValues;
     private Context ctx;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     public MyInicioRecyclerViewAdapter(Context contexto, List<Inicio> items) {
         mValues = items;
         ctx = contexto;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 
     @Override
@@ -40,6 +50,21 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
 
         holder.tvInicioTienda.setText(holder.mItem.getNombreOferta());
         holder.tvInicioDescripcion.setText(holder.mItem.getDescripcion());
+
+        holder.ivShowMenu.setVisibility(View.GONE);
+        for(String user : Constantes.ADMIN_UID){
+            if(user.equals(firebaseUser.getUid())){
+                holder.ivShowMenu.setVisibility(View.VISIBLE);
+            }
+        }
+
+        holder.ivShowMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomModalFragment dialogo = BottomModalFragment.newInstance(holder.mItem.getNombreOferta());
+                dialogo.show(((AppCompatActivity)ctx).getSupportFragmentManager(), "BottomModalFragment");
+            }
+        });
 
         Picasso.get().load(holder.mItem.getPhotoUrl())
                 .into(holder.ivInicioOferta);
@@ -58,6 +83,7 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
         public final TextView tvInicioTienda;
         public final TextView tvInicioDescripcion;
         public final ImageView ivInicioOferta;
+        public final ImageView ivShowMenu;
         public Inicio mItem;
 
         public ViewHolder(View view) {
@@ -66,6 +92,7 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
             tvInicioTienda = view.findViewById(R.id.textViewTiendasNombre);
             tvInicioDescripcion = view.findViewById(R.id.textViewTiendasDescripcion);
             ivInicioOferta = view.findViewById(R.id.imageViewTiendasPhoto);
+            ivShowMenu = view.findViewById(R.id.imageViewShowMenu);
         }
 
         public View getView(){

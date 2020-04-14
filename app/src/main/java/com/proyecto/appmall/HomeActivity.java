@@ -6,18 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.proyecto.appmall.common.Constantes;
-import com.proyecto.appmall.model.Inicio;
+import com.proyecto.appmall.common.MyApp;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private FirebaseUser user;
     private FirebaseAuth auth;
+    private String tagFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         // Añadimos nuestro toolbar editado
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
 
         // Enlazamos las variables con los componentes gráficos
@@ -58,6 +60,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.fragment_container, new InicioFragment())
                     .commit();
+            tagFragment = "inicio";
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
 
@@ -86,8 +89,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     // Evento del boton "Añadir" del Toolbar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
-        nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
+
+        if(tagFragment.equals("inicio")){
+            NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
+            nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -116,6 +122,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .beginTransaction()
                         .replace(R.id.fragment_container, new InicioFragment(), "inicio")
                         .commit();
+                tagFragment = "inicio";
                 break;
             case R.id.nav_tiendas:
                 toolbar.setTitle("Tiendas");
@@ -123,6 +130,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .beginTransaction()
                         .replace(R.id.fragment_container, new TiendasFragment(),"tiendas")
                         .commit();
+                tagFragment = "tiendas";
                 break;
             case R.id.nav_restaurantes:
                 toolbar.setTitle("Restaurantes");
@@ -130,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .beginTransaction()
                         .replace(R.id.fragment_container, new RestaurantesFragment(),"restaurantes")
                         .commit();
+                tagFragment = "restaurantes";
                 break;
             case R.id.nav_cines:
                 toolbar.setTitle("Cines");
@@ -137,6 +146,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .beginTransaction()
                         .replace(R.id.fragment_container, new CinesFragment(),"cines")
                         .commit();
+                tagFragment = "cines";
                 break;
         }
 
