@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
@@ -25,6 +27,8 @@ import com.proyecto.appmall.model.Restaurantes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class InicioFragment extends Fragment {
 
@@ -84,6 +88,8 @@ public class InicioFragment extends Fragment {
 
         loadData();
 
+        refreshData();
+
         return view;
     }
 
@@ -95,17 +101,35 @@ public class InicioFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        inicioList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Inicio inicioItem = document.toObject(Inicio.class);
-                            inicioList.add(inicioItem);
-
-                            adapter = new MyInicioRecyclerViewAdapter(
-                                    getActivity(),
-                                    inicioList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            inicioList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Inicio inicioItem = document.toObject(Inicio.class);
+                                inicioItem.setId(document.getId());
+                                inicioList.add(inicioItem);
+                            }
+                        }else{
+                            inicioList = new ArrayList<>();
                         }
+
+                        adapter = new MyInicioRecyclerViewAdapter(
+                                getActivity(),
+                                inicioList
+                        );
+                        recyclerView.setAdapter(adapter);
+
+                    }
+                });
+
+    }
+
+    private void refreshData(){
+
+        db.collection("inicio")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        loadData();
                     }
                 });
 
@@ -119,17 +143,23 @@ public class InicioFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        inicioList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Inicio inicioItem = document.toObject(Inicio.class);
-                            inicioList.add(inicioItem);
-
-                            adapter = new MyInicioRecyclerViewAdapter(
-                                    getActivity(),
-                                    inicioList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            inicioList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Inicio inicioItem = document.toObject(Inicio.class);
+                                inicioItem.setId(document.getId());
+                                inicioList.add(inicioItem);
+                            }
+                        }else{
+                            inicioList = new ArrayList<>();
                         }
+
+                        adapter = new MyInicioRecyclerViewAdapter(
+                                getActivity(),
+                                inicioList
+                        );
+                        recyclerView.setAdapter(adapter);
+
                     }
                 });
 

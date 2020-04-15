@@ -2,6 +2,7 @@ package com.proyecto.appmall.model;
 
 public class Cines {
 
+    private String id;
     private String nombre;
     private String horarios;
     private String photoUrl;
@@ -12,6 +13,14 @@ public class Cines {
         this.nombre = nombre;
         this.horarios = horarios;
         this.photoUrl = photoUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

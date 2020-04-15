@@ -1,4 +1,4 @@
-package com.proyecto.appmall;
+package com.proyecto.appmall.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.proyecto.appmall.R;
 import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.common.MyApp;
 import com.proyecto.appmall.model.Inicio;
@@ -94,13 +95,10 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
         switch (id){
             case R.id.buttonNuevaOfertaSubirFoto:
                 subirFoto();
-                showProgresBar();
                 break;
             case R.id.buttonNuevaOfertaPublicar:
                 if(!nombre.isEmpty() && !descripcion.isEmpty() && !photoUrl.equals("")){
                     setDataToDatabase();
-                    HomeActivity home = (HomeActivity) getActivity();
-                    home.refreshInicio();
                     dismiss();
                 }else{
                     setErrorText();
@@ -117,7 +115,7 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
 
         CountDownTimer timer;
 
-        timer = new CountDownTimer(4000, 1000) {
+        timer = new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 linearLayout.setVisibility(View.GONE);
@@ -211,6 +209,8 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
              });
 
         }
+
+        showProgresBar();
 
     }
 

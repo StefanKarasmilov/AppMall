@@ -1,5 +1,6 @@
 package com.proyecto.appmall.ui.tiendas;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -13,8 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
+import com.proyecto.appmall.BottomModalFragment;
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.model.Tiendas;
 import com.squareup.picasso.Picasso;
 
@@ -25,10 +30,14 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
 
     private final List<Tiendas> mValues;
     private Context ctx;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     public MyTiendasRecyclerViewAdapter(Context contexto, List<Tiendas> items) {
         ctx = contexto;
         mValues = items;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 
     @Override
@@ -49,6 +58,21 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
 
         Picasso.get().load(holder.mItem.getPhotoUrl())
                 .into(holder.ivTiendasPhoto);
+
+        holder.ivShowMenu.setVisibility(View.GONE);
+        for(String user : Constantes.ADMIN_UID){
+            if(user.equals(firebaseUser.getUid())){
+                holder.ivShowMenu.setVisibility(View.VISIBLE);
+            }
+        }
+
+        holder.ivShowMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomModalFragment dialogo = BottomModalFragment.newInstance(holder.mItem.getId(), "tiendas", holder.mItem.getPhotoUrl());
+                dialogo.show(((AppCompatActivity)ctx).getSupportFragmentManager(), "BottomModalFragment");
+            }
+        });
 
         // Animación zoom-in
         holder.getView().setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.zoom_in));
@@ -87,6 +111,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
         public final TextView tvTiendasHorario;
         public final ImageView ivTiendasPhoto;
         public final ImageView ivTiendasLlamada;
+        public final ImageView ivShowMenu;
         public Tiendas mItem;
 
         public ViewHolder(View view) {
@@ -98,6 +123,7 @@ public class MyTiendasRecyclerViewAdapter extends RecyclerView.Adapter<MyTiendas
             tvTiendasHorario = view.findViewById(R.id.textViewTiendasHorario);
             ivTiendasPhoto = view.findViewById(R.id.imageViewTiendasPhoto);
             ivTiendasLlamada = view.findViewById(R.id.imageViewLamada);
+            ivShowMenu = view.findViewById(R.id.imageViewShowMenu);
         }
 
         @Override

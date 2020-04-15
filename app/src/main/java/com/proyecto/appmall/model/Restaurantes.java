@@ -2,6 +2,7 @@ package com.proyecto.appmall.model;
 
 public class Restaurantes {
 
+    private String id;
     private String nombre;
     private String descripcion;
     private String horario;
@@ -18,6 +19,14 @@ public class Restaurantes {
         this.telefono = telefono;
         this.rating = rating;
         this.photoUrl = photoUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

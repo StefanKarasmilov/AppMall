@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.proyecto.appmall.common.Constantes;
-import com.proyecto.appmall.common.MyApp;
+import com.proyecto.appmall.dialogs.NuevaOfertaFragment;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
@@ -28,7 +27,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private FirebaseUser user;
     private FirebaseAuth auth;
-    private String tagFragment;
+    public String tagFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,13 +152,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
-    }
-
-    public void refreshInicio(){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new InicioFragment(), "inicio")
-                .commit();
     }
 
 }

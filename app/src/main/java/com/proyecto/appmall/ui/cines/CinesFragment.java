@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.model.Cines;
@@ -25,6 +27,8 @@ import com.proyecto.appmall.ui.tiendas.MyTiendasRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 
 public class CinesFragment extends Fragment {
@@ -82,6 +86,8 @@ public class CinesFragment extends Fragment {
 
         loadData();
 
+        refreshData();
+
         return view;
     }
 
@@ -92,17 +98,21 @@ public class CinesFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        cinesList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Cines cine = document.toObject(Cines.class);
-                            cinesList.add(cine);
-
-                            adapter = new MyCinesRecyclerViewAdapter(
-                                    getActivity(),
-                                    cinesList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            cinesList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Cines cine = document.toObject(Cines.class);
+                                cine.setId(document.getId());
+                                cinesList.add(cine);
+                            }
+                        }else{
+                            cinesList = new ArrayList<>();
                         }
+                        adapter = new MyCinesRecyclerViewAdapter(
+                                getActivity(),
+                                cinesList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
@@ -116,22 +126,36 @@ public class CinesFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        cinesList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Cines cine = document.toObject(Cines.class);
-                            cinesList.add(cine);
-
-                            adapter = new MyCinesRecyclerViewAdapter(
-                                    getActivity(),
-                                    cinesList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            cinesList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Cines cine = document.toObject(Cines.class);
+                                cine.setId(document.getId());
+                                cinesList.add(cine);
+                            }
+                        }else{
+                            cinesList = new ArrayList<>();
                         }
+                        adapter = new MyCinesRecyclerViewAdapter(
+                                getActivity(),
+                                cinesList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
         swipeRefreshLayout.setRefreshing(false);
 
+    }
+
+    private void refreshData(){
+        db.collection("cines")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        loadData();
+                    }
+                });
     }
 
 }

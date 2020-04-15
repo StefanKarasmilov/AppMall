@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Inicio {
 
+    private String id;
     private String nombreOferta;
     private String descripcion;
     private String photoUrl;
@@ -17,6 +18,14 @@ public class Inicio {
         this.descripcion = descripcion;
         this.photoUrl = photoUrl;
         this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombreOferta() {

@@ -3,16 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
+    android:padding="16dp"
     tools:context=".BottomModalFragment">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view_bottom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/textViewEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:backgroundTint="@android:color/white"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="@dimen/dp_32"
+        android:gravity="start|center_vertical"
+        android:text="Eliminar"
+        android:textSize="16sp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/navigation_view_dialog" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

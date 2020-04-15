@@ -21,7 +21,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewShowMenu"
             app:srcCompat="@drawable/ic_menu_gallery" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textViewTiendasWeb"
             app:layout_constraintStart_toEndOf="@+id/imageViewTiendasPhoto"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewShowMenu" />
 
         <com.ms.square.android.expandabletextview.ExpandableTextView
             android:id="@+id/expand_text_tiendas"
@@ -85,7 +85,7 @@
             android:textColor="#2196F3"
             android:textIsSelectable="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewShowMenu" />
 
         <ImageView
             android:id="@+id/imageViewLamada"
@@ -96,6 +96,14 @@
             app:layout_constraintStart_toStartOf="@+id/textViewTiendasWeb"
             app:layout_constraintTop_toBottomOf="@+id/textViewTiendasWeb"
             app:srcCompat="@drawable/ic_call_green" />
+
+        <ImageView
+            android:id="@+id/imageViewShowMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_show_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

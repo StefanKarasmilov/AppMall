@@ -1,5 +1,6 @@
 package com.proyecto.appmall.ui.restaurantes;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -13,8 +14,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
+import com.proyecto.appmall.BottomModalFragment;
 import com.proyecto.appmall.R;
+import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.model.Restaurantes;
 import com.squareup.picasso.Picasso;
 
@@ -25,10 +30,14 @@ public class MyRestaurantesRecyclerViewAdapter extends RecyclerView.Adapter<MyRe
 
     private final List<Restaurantes> mValues;
     private Context ctx;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     public MyRestaurantesRecyclerViewAdapter(Context contexto, List<Restaurantes> items) {
         ctx = contexto;
         mValues = items;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 
     @Override
@@ -49,6 +58,23 @@ public class MyRestaurantesRecyclerViewAdapter extends RecyclerView.Adapter<MyRe
 
         Picasso.get().load((holder.mItem.getPhotoUrl()))
                 .into(holder.ivRestaurantesPhoto);
+
+        // Comprueba si el usuario es con permiso de admin
+        holder.ivShowMenu.setVisibility(View.GONE);
+        for(String user : Constantes.ADMIN_UID){
+            if(user.equals(firebaseUser.getUid())){
+                holder.ivShowMenu.setVisibility(View.VISIBLE);
+            }
+        }
+
+        // Evento para mostrar el dialogo del menú
+        holder.ivShowMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomModalFragment dialogo = BottomModalFragment.newInstance(holder.mItem.getId(), "restaurantes", holder.mItem.getPhotoUrl());
+                dialogo.show(((AppCompatActivity)ctx).getSupportFragmentManager(), "BottomModalFragment");
+            }
+        });
 
         // Evento llamada
         holder.ivRestaurantesTelefono.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +102,7 @@ public class MyRestaurantesRecyclerViewAdapter extends RecyclerView.Adapter<MyRe
         public final TextView tvRestaurantesHorario;
         public final ImageView ivRestaurantesTelefono;
         public final ImageView ivRestaurantesPhoto;
+        public final ImageView ivShowMenu;
         public final ExpandableTextView exTvRestaurantesDescripcion;
         public final RatingBar rbRestaurante;
         public Restaurantes mItem;
@@ -88,6 +115,7 @@ public class MyRestaurantesRecyclerViewAdapter extends RecyclerView.Adapter<MyRe
             tvRestaurantesHorario = view.findViewById(R.id.textViewRestaurantesHorario);
             ivRestaurantesTelefono = view.findViewById(R.id.imageViewTelefonoResutantes);
             ivRestaurantesPhoto = view.findViewById(R.id.imageViewRestaurantesPhoto);
+            ivShowMenu = view.findViewById(R.id.imageViewShowMenu);
             rbRestaurante = view.findViewById(R.id.ratingBarRestaurantes);
         }
 

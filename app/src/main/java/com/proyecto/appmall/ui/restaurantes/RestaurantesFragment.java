@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.model.Restaurantes;
@@ -25,6 +27,8 @@ import com.proyecto.appmall.ui.tiendas.MyTiendasRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 
 public class RestaurantesFragment extends Fragment {
@@ -84,6 +88,8 @@ public class RestaurantesFragment extends Fragment {
 
         loadData();
 
+        refreshData();
+
         return view;
     }
 
@@ -94,17 +100,21 @@ public class RestaurantesFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        restaurantesList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Restaurantes restaurante = document.toObject(Restaurantes.class);
-                            restaurantesList.add(restaurante);
-
-                            adapter = new MyRestaurantesRecyclerViewAdapter(
-                                    getActivity(),
-                                    restaurantesList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            restaurantesList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Restaurantes restaurante = document.toObject(Restaurantes.class);
+                                restaurante.setId(document.getId());
+                                restaurantesList.add(restaurante);
+                            }
+                        }else{
+                            restaurantesList = new ArrayList<>();
                         }
+                        adapter = new MyRestaurantesRecyclerViewAdapter(
+                                getActivity(),
+                                restaurantesList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
@@ -117,22 +127,36 @@ public class RestaurantesFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        restaurantesList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Restaurantes restaurante = document.toObject(Restaurantes.class);
-                            restaurantesList.add(restaurante);
-
-                            adapter = new MyRestaurantesRecyclerViewAdapter(
-                                    getActivity(),
-                                    restaurantesList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            restaurantesList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Restaurantes restaurante = document.toObject(Restaurantes.class);
+                                restaurante.setId(document.getId());
+                                restaurantesList.add(restaurante);
+                            }
+                        }else{
+                            restaurantesList = new ArrayList<>();
                         }
+                        adapter = new MyRestaurantesRecyclerViewAdapter(
+                                getActivity(),
+                                restaurantesList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
         swipeRefreshLayout.setRefreshing(false);
 
+    }
+
+    private void refreshData(){
+        db.collection("restaurantes")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        loadData();
+                    }
+                });
     }
 
 }

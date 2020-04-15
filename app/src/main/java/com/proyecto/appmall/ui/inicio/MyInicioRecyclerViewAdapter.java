@@ -61,7 +61,7 @@ public class MyInicioRecyclerViewAdapter extends RecyclerView.Adapter<MyInicioRe
         holder.ivShowMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomModalFragment dialogo = BottomModalFragment.newInstance(holder.mItem.getNombreOferta());
+                BottomModalFragment dialogo = BottomModalFragment.newInstance(holder.mItem.getId(), "inicio", holder.mItem.getPhotoUrl());
                 dialogo.show(((AppCompatActivity)ctx).getSupportFragmentManager(), "BottomModalFragment");
             }
         });

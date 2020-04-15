@@ -2,6 +2,7 @@ package com.proyecto.appmall.model;
 
 public class Tiendas {
 
+    private String id;
     private String nombre;
     private String descripcion;
     private String horario;
@@ -18,6 +19,14 @@ public class Tiendas {
         this.web = web;
         this.photoUrl = photoUrl;
         this.numeroTel = numeroTel;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {

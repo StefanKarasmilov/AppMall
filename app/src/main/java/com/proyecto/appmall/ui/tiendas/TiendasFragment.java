@@ -16,13 +16,17 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.model.Tiendas;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 
 public class TiendasFragment extends Fragment {
@@ -82,6 +86,8 @@ public class TiendasFragment extends Fragment {
 
         loadData();
 
+        refreshData();
+
         return view;
     }
 
@@ -92,17 +98,21 @@ public class TiendasFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        tiendasList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Tiendas tiendasItem = document.toObject(Tiendas.class);
-                            tiendasList.add(tiendasItem);
-
-                            adapter = new MyTiendasRecyclerViewAdapter(
-                                    getActivity(),
-                                    tiendasList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            tiendasList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Tiendas tiendasItem = document.toObject(Tiendas.class);
+                                tiendasItem.setId(document.getId());
+                                tiendasList.add(tiendasItem);
+                            }
+                        }else{
+                            tiendasList = new ArrayList<>();
                         }
+                        adapter = new MyTiendasRecyclerViewAdapter(
+                                getActivity(),
+                                tiendasList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
@@ -115,22 +125,36 @@ public class TiendasFragment extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        tiendasList = new ArrayList<>();
-                        for(DocumentSnapshot document : task.getResult()){
-                            Tiendas tiendasItem = document.toObject(Tiendas.class);
-                            tiendasList.add(tiendasItem);
-
-                            adapter = new MyTiendasRecyclerViewAdapter(
-                                    getActivity(),
-                                    tiendasList
-                            );
-                            recyclerView.setAdapter(adapter);
+                        if(task != null){
+                            tiendasList = new ArrayList<>();
+                            for(DocumentSnapshot document : task.getResult()){
+                                Tiendas tiendasItem = document.toObject(Tiendas.class);
+                                tiendasItem.setId(document.getId());
+                                tiendasList.add(tiendasItem);
+                            }
+                        }else{
+                            tiendasList = new ArrayList<>();
                         }
+                        adapter = new MyTiendasRecyclerViewAdapter(
+                                getActivity(),
+                                tiendasList
+                        );
+                        recyclerView.setAdapter(adapter);
                     }
                 });
 
         swipeRefreshLayout.setRefreshing(false);
 
+    }
+
+    private void refreshData(){
+        db.collection("tiendas")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        loadData();
+                    }
+                });
     }
 
 }
