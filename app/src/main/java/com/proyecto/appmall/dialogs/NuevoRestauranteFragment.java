@@ -33,18 +33,18 @@ import com.google.firebase.storage.UploadTask;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.common.MyApp;
-import com.proyecto.appmall.model.Inicio;
+import com.proyecto.appmall.model.Restaurantes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class NuevaOfertaFragment extends DialogFragment implements View.OnClickListener {
+public class NuevoRestauranteFragment extends DialogFragment implements View.OnClickListener {
 
-    private EditText etNombre, etDescripcion;
+    private EditText etNombre, etDescripcion, etHorario, etNumeroTel, etRating;
     private Button btnSubirFoto, btnPublicar, btnCancelar;
     private ProgressBar progressBar;
     private LinearLayout linearLayout;
-    private String nombre, descripcion, photoUrl = "", fechaPublicacion;
+    private String nombre, descripcion, photoUrl = "", horario, numeroTel, rating, fechaPublicacion;
     private StorageReference storage;
     private FirebaseFirestore db;
     private SimpleDateFormat sdf;
@@ -53,7 +53,7 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
-        storage = FirebaseStorage.getInstance().getReference().child("ofertas");
+        storage = FirebaseStorage.getInstance().getReference().child("restaurantes");
         db = FirebaseFirestore.getInstance();
         sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
     }
@@ -63,10 +63,13 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.nueva_oferta_full_dialog, container, false);
+        View view = inflater.inflate(R.layout.nuevo_restaurante_full_dialog, container, false);
 
         etNombre = view.findViewById(R.id.editTextNombre);
         etDescripcion = view.findViewById(R.id.editTextHorario);
+        etHorario = view.findViewById(R.id.editTextHorario);
+        etNumeroTel = view.findViewById(R.id.editTextNumeroTel);
+        etRating = view.findViewById(R.id.editTextRating);
         btnSubirFoto = view.findViewById(R.id.buttonNuevaOfertaSubirFoto);
         btnPublicar = view.findViewById(R.id.buttonNuevaOfertaPublicar);
         btnCancelar = view.findViewById(R.id.buttonNuevaOfertaCancelar);
@@ -83,19 +86,22 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
         return view;
     }
 
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
         nombre = etNombre.getText().toString();
         descripcion = etDescripcion.getText().toString();
+        horario = etHorario.getText().toString();
+        numeroTel = etNumeroTel.getText().toString();
+        rating = etRating.getText().toString();
 
         switch (id){
             case R.id.buttonNuevaOfertaSubirFoto:
                 subirFoto();
                 break;
             case R.id.buttonNuevaOfertaPublicar:
-                if(!nombre.isEmpty() && !descripcion.isEmpty() && !photoUrl.equals("")){
+                if(!nombre.isEmpty() && !descripcion.isEmpty() && !photoUrl.equals("")
+                        && !horario.isEmpty() && !numeroTel.isEmpty() && !rating.isEmpty()){
                     setDataToDatabase();
                     dismiss();
                 }else{
@@ -108,9 +114,84 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
         }
     }
 
-    // Método para mostrar el progress bar
-    private void showProgresBar() {
+    private void subirFoto(){
+        // Abrimos Intent para seleccionar la imagen de la galeria
+        Intent i = new Intent(Intent.ACTION_PICK);
+        i.setType("image/*");
+        startActivityForResult(i, Constantes.GALLERY_INTENT);
+    }
 
+    private void setDataToDatabase(){
+        fechaPublicacion = sdf.format(new Date());
+
+        Restaurantes restaurante = new Restaurantes(nombre, descripcion, horario, numeroTel, Float.parseFloat(rating), photoUrl, fechaPublicacion);
+        db.collection("restaurantes")
+                .document()
+                .set(restaurante)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyApp.getContext(), "Se ha publicado correctamente", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MyApp.getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Método que comprueba el resultado del intet para subir la foto en el Storage
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == Constantes.GALLERY_INTENT && resultCode == Activity.RESULT_OK){
+            Uri uri = data.getData();
+
+            final StorageReference filePath = storage.child(uri.getLastPathSegment());
+
+            final UploadTask uploadTask = filePath.putFile(uri);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    String mensaje = e.toString();
+                    Toast.makeText(MyApp.getContext(), "Hubo un error en la subida de foto", Toast.LENGTH_SHORT).show();
+                    Log.w("Error en subida de foto", mensaje);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(MyApp.getContext(), "Foto subida con éxito", Toast.LENGTH_SHORT).show();
+
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if(!task.isSuccessful()){
+                                throw task.getException();
+                            }
+
+                            photoUrl = filePath.getDownloadUrl().toString();
+                            return filePath.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+                                photoUrl = task.getResult().toString();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        showProgresBar();
+
+    }
+
+    private void showProgresBar(){
         CountDownTimer timer;
 
         timer = new CountDownTimer(2000, 1000) {
@@ -126,104 +207,42 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
                 linearLayout.setVisibility(View.VISIBLE);
             }
         };
+
         timer.start();
-
     }
 
-    private void setDataToDatabase() {
-
-        fechaPublicacion = sdf.format(new Date());
-
-        Inicio inicio = new Inicio(nombre, descripcion, photoUrl, fechaPublicacion);
-        db.collection("inicio")
-                .document()
-                .set(inicio)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(MyApp.getContext(), "Se ha publicado correctamente", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MyApp.getContext(), "Se ha producido un error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void subirFoto() {
-
-        // Abrimos Intent para seleccionar la imagen de la galeria
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, Constantes.GALLERY_INTENT);
-
-    }
-
-    // Método que comprueba el resultado del intent para subir la foto
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == Constantes.GALLERY_INTENT && resultCode == Activity.RESULT_OK){
-            Uri uri = data.getData();
-
-             final StorageReference filePath = storage.child(uri.getLastPathSegment());
-
-             final UploadTask uploadTask = filePath.putFile(uri);
-
-             uploadTask.addOnFailureListener(new OnFailureListener() {
-                 @Override
-                 public void onFailure(@NonNull Exception e) {
-                     String message = e.toString();
-                     Toast.makeText(MyApp.getContext(), "Hubo un error en la subida de foto", Toast.LENGTH_SHORT).show();
-                     Log.w("Error en subida de foto", message);
-                 }
-             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                 @Override
-                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                     Toast.makeText(MyApp.getContext(), "Foto subida con éxito", Toast.LENGTH_SHORT).show();
-
-                     Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                         @Override
-                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                             if(!task.isSuccessful()){
-                                 throw task.getException();
-                             }
-
-                             photoUrl = filePath.getDownloadUrl().toString();
-                             return filePath.getDownloadUrl();
-                         }
-                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                         @Override
-                         public void onComplete(@NonNull Task<Uri> task) {
-                             if(task.isSuccessful()){
-                                photoUrl = task.getResult().toString();
-                             }
-                         }
-                     });
-                 }
-             });
-
-        }
-
-        showProgresBar();
-
-    }
-
-    // Método que comprueba si los campos están vacios
-    private void setErrorText() {
+    private void setErrorText(){
         if(nombre.isEmpty()){
             etNombre.setError("Campo requerido");
-        }else if(descripcion.isEmpty()) {
+        }else if(descripcion.isEmpty()){
             etDescripcion.setError("Campo requerido");
+        }else if(horario.isEmpty()){
+            etHorario.setError("Campo requerido");
+        }else if(numeroTel.isEmpty()){
+            etNumeroTel.setError("Campo requerido");
+        }else if(rating.isEmpty()){
+            etRating.setError("Campo requerido");
         }else if(photoUrl.equals("")){
             showErrorPhoto();
         }
     }
 
-    // Método que muestra un dialogo en caso de que se cancele la publicación
+    private void showErrorPhoto(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setMessage("Debe subir una foto").setTitle("Falta subir foto");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void showDialogConfirm(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -239,23 +258,6 @@ public class NuevaOfertaFragment extends DialogFragment implements View.OnClickL
         });
 
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    // Método que muestra un mensaje de error si no se a subido una foto
-    private void showErrorPhoto(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setMessage("Debe subir una foto").setTitle("Falta subir foto");
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

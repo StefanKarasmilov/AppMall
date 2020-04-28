@@ -9,16 +9,18 @@ public class Restaurantes {
     private String telefono;
     private float rating;
     private String photoUrl;
+    private String fechaPublicacion;
 
     public Restaurantes(){}
 
-    public Restaurantes(String nombre, String descripcion, String horario, String telefono, float rating, String photoUrl) {
+    public Restaurantes(String nombre, String descripcion, String horario, String telefono, float rating, String photoUrl, String fechaPublicacion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horario = horario;
         this.telefono = telefono;
         this.rating = rating;
         this.photoUrl = photoUrl;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public String getId() {
@@ -75,5 +77,13 @@ public class Restaurantes {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(String fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 }

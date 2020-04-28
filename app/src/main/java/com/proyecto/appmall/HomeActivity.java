@@ -17,6 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.proyecto.appmall.common.Constantes;
 import com.proyecto.appmall.dialogs.NuevaOfertaFragment;
+import com.proyecto.appmall.dialogs.NuevaTiendaFragment;
+import com.proyecto.appmall.dialogs.NuevoCineFragment;
+import com.proyecto.appmall.dialogs.NuevoRestauranteFragment;
 import com.proyecto.appmall.ui.cines.CinesFragment;
 import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
@@ -92,6 +95,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(tagFragment.equals("inicio")){
             NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
             nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
+        }else if(tagFragment.equals("tiendas")){
+            NuevaTiendaFragment nuevaTienda = new NuevaTiendaFragment();
+            nuevaTienda.show(getSupportFragmentManager(), "NuevaTiendaFragmet");
+        }else if(tagFragment.equals("restaurantes")){
+            NuevoRestauranteFragment nuevoRestaurante = new NuevoRestauranteFragment();
+            nuevoRestaurante.show(getSupportFragmentManager(), "NuevoRestauranteFragment");
+        }else if(tagFragment.equals("cines")){
+            NuevoCineFragment nuevoCine = new NuevoCineFragment();
+            nuevoCine.show(getSupportFragmentManager(), "NuevoCineFragment");
         }
 
         return super.onOptionsItemSelected(item);

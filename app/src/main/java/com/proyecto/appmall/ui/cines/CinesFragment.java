@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.proyecto.appmall.R;
 import com.proyecto.appmall.model.Cines;
@@ -94,6 +95,7 @@ public class CinesFragment extends Fragment {
     private void loadData() {
 
         db.collection("cines")
+                .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -122,6 +124,7 @@ public class CinesFragment extends Fragment {
     private void loadNewData() {
 
         db.collection("cines")
+                .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

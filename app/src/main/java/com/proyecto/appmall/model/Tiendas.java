@@ -9,16 +9,18 @@ public class Tiendas {
     private String web;
     private String photoUrl;
     private String numeroTel;
+    private String  fechaPublicacion;
 
     public Tiendas(){}
 
-    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl, String numeroTel) {
+    public Tiendas(String nombre, String descripcion, String horario, String web, String photoUrl, String numeroTel, String fechaPublicacion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.horario = horario;
         this.web = web;
         this.photoUrl = photoUrl;
         this.numeroTel = numeroTel;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public String getId() {
@@ -75,5 +77,13 @@ public class Tiendas {
 
     public void setNumeroTel(String numeroTel){
         this.numeroTel = numeroTel;
+    }
+
+    public String getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(String fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 }

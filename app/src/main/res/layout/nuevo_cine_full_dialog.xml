@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Nueva Oferta"
+                android:text="Nueva Pelicula"
                 android:textColor="@android:color/black"
                 android:textIsSelectable="false"
                 android:textSize="24sp"
@@ -49,7 +49,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Nombre de la Oferta"
+                android:hint="Nombre de la Pelicula"
                 android:inputType="textPersonName"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/common_google_signin_btn_text_light_default" />
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Descripción"
+                android:hint="Horarios"
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/common_google_signin_btn_text_light_default" />

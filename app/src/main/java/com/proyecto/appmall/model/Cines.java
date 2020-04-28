@@ -6,13 +6,15 @@ public class Cines {
     private String nombre;
     private String horarios;
     private String photoUrl;
+    private String fechaPublicacion;
 
     public Cines(){}
 
-    public Cines(String nombre, String horarios, String photoUrl) {
+    public Cines(String nombre, String horarios, String photoUrl, String fechaPublicacion) {
         this.nombre = nombre;
         this.horarios = horarios;
         this.photoUrl = photoUrl;
+        this.fechaPublicacion = fechaPublicacion;
     }
 
     public String getId() {
@@ -47,4 +49,11 @@ public class Cines {
         this.photoUrl = photoUrl;
     }
 
+    public String getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(String fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
 }
