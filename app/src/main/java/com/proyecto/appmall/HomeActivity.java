@@ -7,11 +7,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,11 +42,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         // Añadimos nuestro toolbar editado
         Toolbar toolbar = findViewById(R.id.toolbar);
+        Button log = findViewById(R.id.login);
+
+
         toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
 
@@ -112,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     // Método que controla la apertura y cierre del menú
     @Override
     public void onBackPressed() {
+
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else {
@@ -125,6 +137,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView User = findViewById(R.id.txUser);
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        User.setText("Usuario: " + user.getEmail());
+
 
         switch(item.getItemId()){
             case R.id.nav_inicio:
@@ -159,11 +176,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 tagFragment = "cines";
                 break;
+            case R.id.nav_navegar:
+                toolbar.setTitle("Navegar");
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+    public void onClick(View v) {
+
+       //LoginActivity logi = new LoginActivity();
+       // logi.signOut();
+       // Intent intent = new Intent(this, LoginActivity.class);
+       // startActivity(intent);
     }
 
 }

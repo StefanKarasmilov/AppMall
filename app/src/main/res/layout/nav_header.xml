@@ -14,10 +14,13 @@
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
+        android:id="@+id/txUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Stefan y Raul"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold|italic" />
 
 </LinearLayout>

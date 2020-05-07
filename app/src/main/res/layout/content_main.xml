@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BDBDBD"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    style="@style/AppTheme.NoActionBar"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/txtUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:textColor="#FF5722"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:text="ESTABLECE UNA RUTA"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="15dp"
+        android:spinnerMode="dialog"
+        android:textStyle="bold"
+        app:ms_arrow_tint="@color/colorPrimaryDark"
+        app:ms_background_selector="10"
+        app:ms_dropdown_height="wrap_content"
+        app:ms_dropdown_max_height="350dp"
+        app:ms_hint="@string/hint_uno"
+        app:ms_text_color="#000000" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/spinner_dos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_marginTop="50dp"
+        android:spinnerMode="dialog"
+        android:textStyle="bold"
+        app:ms_arrow_tint="@color/colorPrimaryDark"
+        app:ms_background_selector="10"
+        app:ms_dropdown_height="wrap_content"
+        app:ms_dropdown_max_height="350dp"
+        app:ms_hint="@string/hint_dos"
+        app:ms_text_color="#000000" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_dos"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/myrect"
+        android:backgroundTint="#FF5252"
+        android:onClick="onClickbtnReset"
+        android:text="RESET"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_dos"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="41dp"
+        android:layout_toEndOf="@+id/btnReset"
+        android:background="@drawable/myrect"
+        android:backgroundTint="#FF5252"
+        android:onClick="onClickMapa"
+        android:padding="10dp"
+        android:text="VER MAPAS"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_dos"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="115dp"
+        android:background="@drawable/myrect"
+        android:backgroundTint="#000000"
+        android:enabled="true"
+        android:fadeScrollbars="false"
+        android:onClick="onClickRutabtn"
+        android:padding="10dp"
+        android:text="BUSCAR RUTA"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

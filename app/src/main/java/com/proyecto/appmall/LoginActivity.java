@@ -63,6 +63,9 @@ public class LoginActivity extends BaseActivity implements
             btnContinue.setVisibility(View.VISIBLE);
             Toast.makeText(LoginActivity.this, "Sesion abierta por: "
                     + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+
         }
 
     }
@@ -144,7 +147,7 @@ public class LoginActivity extends BaseActivity implements
 
     }
 
-    private void signOut() {
+    public void signOut() {
         mAuth.signOut();
         btnContinue.setVisibility(View.INVISIBLE);
         mEmailField.setText("");

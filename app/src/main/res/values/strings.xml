@@ -3,25 +3,25 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="notification">Selecciona datos en origen y final para continuar</string>
-    <string name="radiologia">Radiología</string>
-    <string name="urgencias">Urgencias</string>
+    <string name="hall">Hall Entrada</string>
+    <string name="lavabo">Lavabos</string>
     <string name="reset">No hay ninguna selección</string>
     <string name="establecida">RUTA ESTABLECIDA</string>
-    <string name="traumatologia">Traumatología</string>
+    <string name="zona_comercial">Zona Comercial - Tiendas</string>
     <string name="ascensor">Ascensor</string>
-    <string name="quirofano">Quirófano</string>
-    <string name="esterilizacion">Esterilización</string>
+    <string name="supermercado">Supermercado</string>
+    <string name="out">Salida Out</string>
     <string name="vestuario">Vestuario</string>
-    <string name="farmacia">Farmacia</string>
+    <string name="parking">Parking</string>
     <string name="auth_failed">Authentication failed</string>
-    <string name="cuidados">UVI\nCuidados Intensivos</string>
-    <string name="secuencia">rutafqcve</string>
+    <string name="escaleras">Escaleras</string>
+    <string name="secuencia">hlzsaepo</string>
     <string name="maps">PLANTAS HOSPITAL</string>
     <string name="iniciar">INICIAR</string>
     <string name="avanzar">AVANZAR</string>
     <string name="finalizar">FINALIZAR</string>
     <string name="retroceder">RETROCEDER</string>
-    <string name="plantas_hospital">PLANTAS HOSPITAL</string>
+    <string name="plantas_cc">PLANTAS CENTRO</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="seleccion">Selecciona origen y destino</string>
     <string name="seleccion_spin">Has seleccionado: </string>
@@ -46,5 +46,6 @@
     <string name="sign_in">Sign In</string>
     <string name="create_account">Create Account</string>
     <string name="verify_email">Verify Email</string>
+    <string name="reset_ok">Reset realizado correctamente</string>
 
 </resources>
