@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,12 +34,13 @@ import com.proyecto.appmall.ui.inicio.InicioFragment;
 import com.proyecto.appmall.ui.restaurantes.RestaurantesFragment;
 import com.proyecto.appmall.ui.tiendas.TiendasFragment;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private FirebaseUser user;
     private FirebaseAuth auth;
     public String tagFragment;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Añadimos nuestro toolbar editado
         Toolbar toolbar = findViewById(R.id.toolbar);
         Button log = findViewById(R.id.login);
-
+        mAuth = FirebaseAuth.getInstance();
 
         toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
@@ -67,7 +70,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             toolbar.setTitle("Inicio");
             getSupportFragmentManager()
                     .beginTransaction()
@@ -89,8 +92,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     // Añade el boton "Añadir"
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        for(String adminUser : Constantes.ADMIN_UID){
-            if(user.getUid().equals(adminUser)){
+        for (String adminUser : Constantes.ADMIN_UID) {
+            if (user.getUid().equals(adminUser)) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.toolbar_menu, menu);
                 return true;
@@ -103,16 +106,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(tagFragment.equals("inicio")){
+        if (tagFragment.equals("inicio")) {
             NuevaOfertaFragment nuevaOferta = new NuevaOfertaFragment();
             nuevaOferta.show(getSupportFragmentManager(), "NuevaOfertaFragment");
-        }else if(tagFragment.equals("tiendas")){
+        } else if (tagFragment.equals("tiendas")) {
             NuevaTiendaFragment nuevaTienda = new NuevaTiendaFragment();
             nuevaTienda.show(getSupportFragmentManager(), "NuevaTiendaFragmet");
-        }else if(tagFragment.equals("restaurantes")){
+        } else if (tagFragment.equals("restaurantes")) {
             NuevoRestauranteFragment nuevoRestaurante = new NuevoRestauranteFragment();
             nuevoRestaurante.show(getSupportFragmentManager(), "NuevoRestauranteFragment");
-        }else if(tagFragment.equals("cines")){
+        } else if (tagFragment.equals("cines")) {
             NuevoCineFragment nuevoCine = new NuevoCineFragment();
             nuevoCine.show(getSupportFragmentManager(), "NuevoCineFragment");
         }
@@ -124,13 +127,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
 
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -143,7 +145,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         User.setText("Usuario: " + user.getEmail());
 
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_inicio:
                 toolbar.setTitle("Inicio");
                 getSupportFragmentManager()
@@ -156,7 +158,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Tiendas");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new TiendasFragment(),"tiendas")
+                        .replace(R.id.fragment_container, new TiendasFragment(), "tiendas")
                         .commit();
                 tagFragment = "tiendas";
                 break;
@@ -164,7 +166,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Restaurantes");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new RestaurantesFragment(),"restaurantes")
+                        .replace(R.id.fragment_container, new RestaurantesFragment(), "restaurantes")
                         .commit();
                 tagFragment = "restaurantes";
                 break;
@@ -172,7 +174,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Cines");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new CinesFragment(),"cines")
+                        .replace(R.id.fragment_container, new CinesFragment(), "cines")
                         .commit();
                 tagFragment = "cines";
                 break;
@@ -187,12 +189,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return true;
 
     }
-    public void onClick(View v) {
 
-       //LoginActivity logi = new LoginActivity();
-       // logi.signOut();
-       // Intent intent = new Intent(this, LoginActivity.class);
-       // startActivity(intent);
+    public void onClick(View v) {
+            mAuth.signOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
     }
 
 }
