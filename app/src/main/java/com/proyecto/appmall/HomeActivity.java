@@ -82,6 +82,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         initFirebase();
 
+        updateNavHeader();
+
     }
 
     private void initFirebase() {
@@ -139,11 +141,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView User = findViewById(R.id.txUser);
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        User.setText("Usuario: " + user.getEmail());
-
 
         switch (item.getItemId()) {
             case R.id.nav_inicio:
@@ -187,6 +184,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
+    }
+
+    // Refresca el Header (Nombre del usuario)
+    public void updateNavHeader(){
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView User = headerView.findViewById(R.id.txUser);
+        FirebaseUser user = auth.getCurrentUser();
+        User.setText("Usuario: " + user.getEmail());
 
     }
 
