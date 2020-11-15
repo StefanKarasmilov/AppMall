@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">uVoteMatter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_username">Enter username</string>
+    <string name="next_button">Next</string>
+    <string name="create_new_vote_button">Create new vote</string>
+    <string name="nickname">Nickname:</string>
+    <string name="vote_points">Vote points:</string>
+    <string name="delete_all">Delete all</string>
+</resources>

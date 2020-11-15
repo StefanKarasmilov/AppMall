@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "457678619225",
+    "firebase_url": "https://uvotematter.firebaseio.com",
+    "project_id": "uvotematter",
+    "storage_bucket": "uvotematter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457678619225:android:ab3f705fc93ff839fc2748",
+        "android_client_info": {
+          "package_name": "com.example.uvotematter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457678619225-nt1jv2sd5r2s3dr2eobsiq4m9adfo52c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7pkOX_PNylsNAFNzzmuEpQkE92-L_7bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457678619225-nt1jv2sd5r2s3dr2eobsiq4m9adfo52c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
